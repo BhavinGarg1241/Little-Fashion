@@ -30,15 +30,3 @@
 #To test using npm test
     added "test": "mocha" under scripts in package.json
 
-#Test Credentials
-    admin
-    email: admin@test.com
-    psswd: admin
-
-    employee
-    email: emp@test.com
-    psswd: emp123
-
-    user
-    email: user@test.com
-    psswd: user
