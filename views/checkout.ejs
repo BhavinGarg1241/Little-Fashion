@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap">
+    <link rel="stylesheet" href="styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/slick.css" />
+    <link rel="stylesheet" href="styles/tooplate-little-fashion.css">
+    <title>Little Fashion</title>
+</head>
+
+<body>
+    <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
+        </div>
+    </section>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <a class="navbar-brand" href="/">
+                <strong><span>Little</span> Fashion</strong>
+            </a>
+
+            <div class="d-lg-none">
+                <a href="/cart" class="bi bi-cart2 custom-icon me-3"></a>
+
+                <a href="/profile" class="bi-person custom-icon me-3"></a>
+
+                <a href="/auth/logout" class="bi bi-box-arrow-right custom-icon"></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <p class="fs-2">Checkout</p>
+                </ul>
+
+                <div class="d-none d-lg-block">
+                    <a href="/cart" class="bi bi-cart2 custom-icon me-3"></a>
+                    <a href="/profile" class="bi-person custom-icon me-3"></a>
+                    <a href="/auth/logout" class="bi bi-box-arrow-right custom-icon"></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <section class="section-padding mt-4">
+            <div class="container d-flex">
+                <div class="col-8">
+                    <div class="address-panel me-5">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">
+                            Add Address&ensp;<i class="bi bi-plus"></i>
+                        </button>
+                        <div class="container d-flex">
+                            <div class="col-6">
+                                <h4><span class="fs-5">Billing Addresss</span></h4>
+                                <div class="container-fluid ps-5">
+                                    <%if(defaultAddress.filter(address=> address.type === 'B').length <= 0){%>
+                                        <p class="fw-bold text-dark">
+                                            No Address is available
+                                        </p>
+                                        <%}%>
+                                        <% defaultAddress.forEach((data)=>{%>
+                                            <%if(data.type==='B'){%>
+                                                <div>
+                                                    <p class="fw-bold text-dark">
+                                                        <%=data.name%>, <%=data.hno%>, <br />
+                                                        <%=data.city%>, <%=data.state%>, <%=data.pincode%>
+                                                    </p>
+                                                </div>
+                                            <%}%>
+                                        <%})%>
+                                </div>
+                                <button class="btn btn-link" data-bs-toggle="modal"
+                                    data-bs-target="#changeBillingAddressModal">
+                                    Change Address
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <h4><span class="fs-5">Shipping Addresss</span></h4>
+                                <div class="container-fluid ps-5">
+                                    <%if(defaultAddress.filter(address=> address.type === 'S').length <= 0){%>
+                                        <p class="fw-bold text-dark">
+                                            No Address is available
+                                        </p>
+                                    <%}%>
+                                    <% defaultAddress.forEach((data)=>{%>
+                                        <%if(data.type==='S'){%>
+                                            <div>
+                                                <p class="fw-bold text-dark">
+                                                    <%=data.name%>, <%=data.hno%>, <br />
+                                                    <%=data.city%>, <%=data.state%>, <%=data.pincode%>
+                                                </p>
+                                            </div>
+                                        <%}%>
+                                    <%})%>
+                                </div>
+                                <button class="btn btn-link" data-bs-toggle="modal"
+                                    data-bs-target="#changeShippingAddressModal">
+                                    Change Address
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="bill-summary ms-5">
+                        <div class="container pt-4 ps-4">
+                            <table class="table">
+                                <h5>Order Summary</h5>
+                                <tr>
+                                    <td>Items: </td>
+                                    <td>$<%=totalPrice%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h4><span class="fs-4">Order Total:</span></h4>
+                                    </td>
+                                    <td class="pt-3"><span class="fs-5 fw-bold">$<%=totalPrice%></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="pb-5">
+            <div class="container pb-5">
+                <div class="col-4">
+                    <h2>Payment</h1>
+                    <% if(messages.error){ %>
+                        <div class="mt-5 me-5 pe-5">
+                            <div class="message">
+                                <%= messages.error %>
+                            </div>
+                        </div>
+                    <%}%>
+                    <form class="contact-form me-lg-5 pe-lg-3" role="form" action="/payment" method="post">
+                        <% if (flag===true) { %>
+                        
+                            <legend class="mb-4">Select Credit Card</legend>
+                            <% customerprofileData.paymentProfiles.forEach((card,index) => { %>                                
+                                <div class="form-check ">
+                                    <input type="radio" class="form-check-input" name="creditCard" id="creditCard<%= index %>" value="<%= card.customerPaymentProfileId%>" required>
+                                    <label class="form-check-label form-check-input-container" for="creditCard<%= index %>"><%= card.payment.creditCard.cardNumber %></label>
+                                </div>
+                            <% }); %>
+                            <% } else { %>
+                                <p>No credit cards found.</p>
+                                <div>
+                                    <a href="/profile/saved_cards">Add Another Card</a>
+                                </div>
+                            <% } %>
+                        <input type="hidden" name="amount" id="amount" value="<%=totalPrice%>">
+                        <div>
+                            <a href="/profile/saved_cards">Add Another Card</a>
+                        </div>
+                        <div class="col-lg-8 col-6 mt-4">
+                            <button type="submit" class="form-control" aria-label="Pay and Place Order">Pay and Place Order</button>
+                        </div>
+                    </form>
+                </div>       
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal to Add Address-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header pt-3 pb-2 ps-4">
+                    <h1 class="modal-title fs-3" id="staticBackdropLabel">Add Address</h1>
+                    <button type="button" class="btn-close mt-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/checkout/add_address" role="form" method="post" autocomplete="off">
+
+                        <div class="form-floating">
+                            <input type="text" name="fullname" id="fullname" class="form-control"
+                                placeholder="Your Name" required>
+
+                            <label for="hno">Full Name</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" name="hno" id="hno" class="form-control"
+                                placeholder="House No. / Building Name, Area" required>
+
+                            <label for="hno">House No. / Building Name, Area</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" name="city" id="city" class="form-control" placeholder="City" required>
+
+                            <label for="city">City</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" name="state" id="state" class="form-control" placeholder="State"
+                                required>
+
+                            <label for="state">State</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" name="pincode" id="pincode" class="form-control" placeholder="Pin Code"
+                                pattern="\d{6}" required>
+
+                            <label for="pincode">Pin Code (6 Digit Code)</label>
+                        </div>
+                        <br />
+                        <input type="radio" name="address_type" id="billing_address" value="B" required>
+                        <label for="billing_address" class="fw-bold">Billing Address</label>&ensp;&ensp;
+                        <input type="radio" name="address_type" id="shipping_address" value="S" required>
+                        <label for="shipping_address" class="fw-bold">Shipping Address</label>
+                        <input type="hidden" name="source" value="checkout">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Cancel</button>&ensp;
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal to Select Billing Address -->
+    <div class="modal fade" id="changeBillingAddressModal" tabindex="-1" role="dialog"
+        aria-labelledby="changeBillingAddressModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header pt-3 pb-2 ps-4">
+                    <h4 class="modal-title fs-5 text-success" id="staticBackdropLabel">Select Billing Address</h4>
+                    <button type="button" class="btn-close mt-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <%if(addresses.filter(address=> address.type === 'B').length <= 0){%>
+                        <p class="fw-bold text-dark">
+                            No Address is available
+                        </p>
+                    <%}%>
+                    <% addresses.forEach((data,index)=>{%>
+                        <%if(data.type==='B'){%>
+                            <form method="post" role="form" action="/checkout/select_billAddress">
+                                <div>
+                                    <input type="radio" id="bill_address_<%=index%>" name="bill_address"
+                                        value="<%=data.id%>" required> &ensp;&ensp;
+                                    <label for="bill_address_<%=index%>" class="fw-bold text-dark">
+                                        <%=data.name%>, <%=data.hno%>, <br />
+                                                <%=data.city%>, <%=data.state%>, <%=data.pincode%>
+                                    </label><br /><br />
+                                </div>
+                        <%}%>
+                    <%})%>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Cancel</button>&ensp;
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal to Select Shiping Address -->
+    <div class="modal fade" id="changeShippingAddressModal" tabindex="-1" role="dialog"
+        aria-labelledby="changeShippingAddressModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header pt-3 pb-2 ps-4">
+                    <h4 class="modal-title fs-5 text-success" id="staticBackdropLabel">Select Shipping Address</h4>
+                    <button type="button" class="btn-close mt-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <%if(addresses.filter(address=> address.type === 'S').length <= 0){%>
+                        <p class="fw-bold text-dark">
+                            No Address is available
+                        </p>
+                    <%}%>
+                    <% addresses.forEach((data,index)=>{%>
+                        <%if(data.type==='S' ){%>
+                            <form method="post" role="form" action="/checkout/select_shipAddress">
+                                <div>
+                                    <input type="radio" id="ship_address_<%=index%>" name="ship_address"
+                                        value="<%=data.id%>" required> &ensp;&ensp;
+                                    <label for="ship_address_<%=index%>" class="fw-bold text-dark">
+                                        <%=data.name%>, <%=data.hno%>, <br />
+                                        <%=data.city%>, <%=data.state%>, <%=data.pincode%>
+                                    </label><br /><br />
+                                </div>
+                                <%}%>
+                            <%})%>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancel</button>&ensp;
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/Headroom.js"></script>
+    <script src="js/jQuery.headroom.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+
+</html>

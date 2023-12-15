@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/slick.css" />
+    <link rel="stylesheet" href="/styles/tooplate-little-fashion.css">
+    <title>Little Fashion</title>
+</head>
+
+<body>
+    <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
+        </div>
+    </section>
+
+    <main>
+
+        <%- include('partials/header') %>
+            <section class="section-padding">
+                <div class="d-flex flex-column align-items-center">
+                    <h2 class="text-center mb-4">Users</h2>
+                </div>
+                <div class="container">
+                    <table class="table">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Orders</th>
+                                <th>Change Role</th>
+                                <th>Change Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="pt-5">
+                            <% users.forEach((user)=>{%>
+                                <tr class="text-center">
+                                    <td>
+                                        <%=user.email%>
+                                    </td>
+                                    <% if(user.user_role.role===2){%>
+                                        <td>Employee</td>
+                                    <%}else if(user.user_role.role===3){%>
+                                        <td>User</td>
+                                    <%}%>
+                                    <% if(user.status===true){%>
+                                        <td>Active</td>
+                                    <%}else if(user.status===false){%>
+                                        <td>Inactive</td>
+                                    <%}%>
+                                    <td><a>Orders</a></td>
+                                    <td>
+                                        <!-- Form for changing role -->
+                                        <form action="/admin/update_role/<%= user.id %>" method="post">
+                                            <select name="newRole" class="change_role_input btn">
+                                                <option value="2" <% if (user.user_role.role === 2) { %>selected<% } %>>Employee</option>
+                                                <option value="3" <% if (user.user_role.role === 3) { %>selected<% } %>>User</option>
+                                            </select>
+                                            <input type="submit" class="btn btn-dark" value="Change Role">
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <!-- Form for changing status -->
+                                        <form action="/admin/update_status/<%= user.id %>" method="post">
+                                            <select name="newStatus" class="change_status_input btn">
+                                                <option value="true" <%if(user.status===true){%>selected<%}%>>Active</option>
+                                                <option value="false" <%if(user.status===false){%>selected<%}%>>Inactive</option>
+                                            </select>
+                                            <input type="submit" class="btn btn-dark" value="Change Status">
+                                        </form>
+                                    </td>
+                                </tr>
+                                <%})%>
+                        </tbody>
+                    </table>
+                </div>
+            </section>            
+        </main>
+        <%- include('partials/footer') %>
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Headroom.js"></script>
+    <script src="/js/jQuery.headroom.js"></script>
+    <script src="/js/slick.min.js"></script>
+    <script src="/js/custom.js"></script>
+</body>
+
+</html>

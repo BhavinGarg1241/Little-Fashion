@@ -1,0 +1,258 @@
+/* Slider */
+.slick-slider {
+    position: relative;
+
+    display: block;
+    box-sizing: border-box;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slick-list {
+    position: relative;
+
+    display: block;
+    overflow: hidden;
+
+    margin: 0;
+    padding: 0;
+}
+
+.slick-list:focus {
+    outline: none;
+}
+
+.slick-list.dragging {
+    cursor: pointer;
+    cursor: hand;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.slick-track {
+    position: relative;
+    top: 0;
+    left: 0;
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slick-track:before,
+.slick-track:after {
+    display: table;
+
+    content: '';
+}
+
+.slick-track:after {
+    clear: both;
+}
+
+.slick-loading .slick-track {
+    visibility: hidden;
+}
+
+.slick-slide {
+    display: none;
+    float: left;
+
+    height: 100%;
+    min-height: 1px;
+}
+
+[dir='rtl'] .slick-slide {
+    float: right;
+}
+
+.slick-slide img {
+    display: block;
+}
+
+.slick-slide.slick-loading img {
+    display: none;
+}
+
+.slick-slide.dragging img {
+    pointer-events: none;
+}
+
+.slick-initialized .slick-slide {
+    display: block;
+}
+
+.slick-loading .slick-slide {
+    visibility: hidden;
+}
+
+.slick-vertical .slick-slide {
+    display: block;
+
+    height: auto;
+
+    border: 1px solid transparent;
+}
+
+.slick-arrow.slick-hidden {
+    display: none;
+}
+
+.update-btns {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+}
+
+.edit-btn {
+    color: rgb(56, 145, 247);
+    margin-right: 10%;
+}
+
+.delete-btn {
+    color: rgb(253, 63, 63);
+}
+
+.message {
+    /* background-color: antiquewhite; */
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+    margin-top: -30px;
+    margin-bottom: 20px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.reset_password {
+    color: rgb(94, 157, 250);
+    font-weight: 550;
+}
+
+.reset_password:hover {
+    color: rgb(0, 85, 255);
+    transition: 0.3s;
+}
+
+.profile_menu {
+    /* background: var(--dark-color);*/
+    border: none;
+    border-radius: 100px;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    padding: 16px;
+    margin-top: 25px;
+    width: 50%;
+}
+
+.checkout-btn {
+    background-color: rgb(155, 49, 49);
+    color: white;
+    border-radius: 10px;
+    font-size: var(--copyright-text-font-size);
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 16.50px 20px;
+    width: 200%;
+}
+
+.empty-cart {
+    margin-bottom: 10px;
+    margin-left: -10px;
+}
+
+.empty-cart-btn {
+    background-color: rgb(222, 43, 43);
+    color: white;
+    border-radius: 10px;
+    font-size: var(--copyright-text-font-size);
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 14.50px 18px;
+    width: 150%;
+}
+
+.address-panel {
+    padding: 20px;
+    background-color: #f1f1f1;
+    overflow-y: auto;
+}
+
+.bill-summary {
+    position: sticky;
+    top: 0;
+    right: 0;
+    background-color: #f1f1f1;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 300px;
+}
+
+.card-number {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.expiration-date {
+    font-size: 14px;
+    color: #555;
+}
+
+.action-buttons {
+    margin-top: 15px;
+}
+.form-check{
+    margin-bottom: 10px;
+}
+.form-check-label {
+    cursor: pointer;
+    padding-left: 5px;
+}
+.form-check-input{
+    border: 1px solid black;
+}
+.form-check-input:checked+.form-check-label {
+    font-weight: bold;
+    color: #187afa;
+}
+
+.form-check-input-container {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.form-check-input:checked+.form-check-label {
+    border: 2px solid #28a745;
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap">
+    <link rel="stylesheet" href="styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/slick.css" />
+    <link rel="stylesheet" href="styles/tooplate-little-fashion.css">
+    <title>Little Fashion</title>
+</head>
+
+<body>
+    <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
+        </div>
+    </section>
+
+    <main>
+
+        <%- include('partials/header') %>
+            <header class="site-header section-padding-img site-header-image">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-10 col-12 header-info">
+                            <h1>
+                                <span class="d-block text-primary">Say hello to us</span>
+                                <span class="d-block text-dark">love to hear you</span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+
+                <img src="images/header/positive-european-woman-has-break-after-work.jpg" class="header-image img-fluid"
+                    alt="">
+            </header>
+
+            <section class="contact section-padding">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-6 col-12">
+                            <h2 class="mb-4">Let's <span>begin adding your products!</span></h2>
+
+                            <form class="contact-form me-lg-5 pe-lg-3" role="form" action="/products" method="post"
+                                enctype="multipart/form-data">
+
+                                <div class="form-floating">
+                                    <input type="text" name="name" id="name" class="form-control"
+                                        placeholder="Product name" required>
+
+                                    <label for="name">Product Name</label>
+                                </div>
+
+                                <div class="form-floating my-4">
+                                    <input type="number" name="price" id="price" class="form-control"
+                                        placeholder="Price" required>
+
+                                    <label for="price">Price</label>
+                                </div>
+
+                                <div class="form-floating mb-4">
+                                    <textarea id="des" name="des" class="form-control" placeholder="Add Description"
+                                        required style="height: 160px"></textarea>
+
+                                    <label for="message">Tell us about the product</label>
+                                </div>
+
+                                <div class="form-floating my-4">
+                                    <input type="file" name="img" id="img" placeholder="Add Image"
+                                        accept=".jpg, .jpeg, .png" required>
+                                </div>
+
+                                <div class="col-lg-5 col-6">
+                                    <button type="submit" class="form-control">Sell</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-lg-6 col-12 mt-5 ms-auto">
+                            <div class="row">
+                                <div class="col-6 border-end contact-info">
+                                    <h6 class="mb-3">New Business</h6>
+
+                                    <a href="mailto:hello@company.com" class="custom-link">
+                                        hello@company.com
+                                        <i class="bi-arrow-right ms-2"></i>
+                                    </a>
+                                </div>
+
+                                <div class="col-6 contact-info">
+                                    <h6 class="mb-3">Main Studio</h6>
+
+                                    <a href="mailto:studio@company.com" class="custom-link">
+                                        studio@company.com
+                                        <i class="bi-arrow-right ms-2"></i>
+                                    </a>
+                                </div>
+
+                                <div class="col-6 border-top border-end contact-info">
+                                    <h6 class="mb-3">Our Office</h6>
+
+                                    <p class="text-muted">Akershusstranda 20, 0150 Oslo, Norway</p>
+                                </div>
+
+                                <div class="col-6 border-top contact-info">
+                                    <h6 class="mb-3">Our Socials</h6>
+
+                                    <ul class="social-icon">
+
+                                        <li><a href="#" class="social-icon-link bi-messenger"></a></li>
+
+                                        <li><a href="#" class="social-icon-link bi-youtube"></a></li>
+
+                                        <li><a href="#" class="social-icon-link bi-instagram"></a></li>
+
+                                        <li><a href="#" class="social-icon-link bi-whatsapp"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+    </main>
+
+
+    <%- include('partials/footer') %>
+
+        <!-- JAVASCRIPT FILES -->
+        <script>
+            document.getElementById('img').addEventListener('change', function () {
+                const fileInput = this;
+                if (fileInput.files.length > 0) {
+                    const maxSizeInBytes = 1024 * 1024; // 1MB
+                    const fileSize = fileInput.files[0].size;
+
+                    if (fileSize > maxSizeInBytes) {
+                        alert('File size exceeds the allowed limit of 1MB. Please select a smaller file.');
+                        fileInput.value = ''; // Clear the file input
+                    }
+                    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                    const selectedFileType = fileInput.files[0].type;
+
+                    if (!allowedTypes.includes(selectedFileType)) {
+                        alert('Invalid file type. Please select a valid image file (jpeg, jpg, or png).');
+                        fileInput.value = ''; // Clear the file input
+                    }
+                }
+            });
+        </script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/Headroom.js"></script>
+        <script src="js/jQuery.headroom.js"></script>
+        <script src="js/slick.min.js"></script>
+        <script src="js/custom.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/slick.css" />
+    <link rel="stylesheet" href="/styles/tooplate-little-fashion.css">
+    <title>Little Fashion</title>
+</head>
+
+<body>
+    <main>
+        <section class="section-padding">
+            <div class="d-flex flex-column align-items-center">
+                <h2 class="text-center mb-4">Track Your Orders</h2>
+            </div>
+            <% if(messages.error){ %>
+                <div class="message mt-1">
+                    <%= messages.error %>
+                </div>
+            <%}%>
+            <div class="container">
+                <table class="table">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Order ID</th>
+                            <th>Transaction ID</th>
+                            <th>Date Of Order</th>
+                            <th>Total Price</th>
+                            <th>Order Details</th>
+                            <th col>Status</th>
+                            <th>Cancel Order</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <% trackOrders.forEach((order)=>{%>
+                            <tr>
+                                <td><%= order.id%></td>
+                                <td><%= order.transaction_id%></td>
+                                <td><%= order.order_date%></td>
+                                <td><%= order.total_price%></td>
+                                <td>
+                                    <a href="/order_details/<%=order.id%>" class="fs-4">
+                                        <i class="bi bi-card-checklist"></i>
+                                    </a>
+                                </td>
+                                <td <% if(order.status==='Cancelled'){%>style="color:red;"<%}else if(order.status==='Delivered'){%> style="color:green;"<%}%> >
+                                    <%= order.status%>
+                                </td>
+                                <td>
+                                    <% if(order.status === 'Pending' || order.status === 'Accepted'){%>
+                                        <a href="/checkout/cancel_order/<%=order.transaction_id%>"><i class="bi bi-x text-danger fs-4"></i></a>
+                                    <%}else{%>
+                                        <i class="bi bi-x text-secondary fs-5"></i>
+                                    <%}%>   
+                                </td>
+                            </tr>
+                        <%})%>
+                    </tbody>
+                </table>
+            </div>
+        </section>    
+        <%- include('partials/header') %>
+    </main>
+
+    <%- include('partials/footer') %>
+
+        <!-- JAVASCRIPT FILES -->
+        <script type="application/json" src="js/jquery.min.js"></script>
+        <script type="application/json" src="js/bootstrap.bundle.min.js"></script>
+        <script type="application/json" src="js/Headroom.js"></script>
+        <script type="application/json" src="js/jQuery.headroom.js"></script>
+        <script type="application/json" src="js/slick.min.js"></script>
+        <script type="application/json" src="js/custom.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/slick.css" />
+    <link rel="stylesheet" href="/styles/tooplate-little-fashion.css">
+    <title>Little Fashion</title>
+</head>
+
+<body>
+    <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
+        </div>
+    </section>
+    <main>
+        <%- include('partials/header') %>
+
+            <section class="section-padding">
+                <div class="d-flex flex-column align-items-center">
+                    <h2 class="text-center mb-4">Your Saved Addresses</h2>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                        Add Address&ensp;<i class="bi bi-plus"></i>
+                    </button>
+                </div>
+                <div class="container d-flex mt-4">
+                    <div class="col-6 pt-2 d-flex flex-column align-items-center">
+                        <h5 class="text-center text-primary mb-2">Billing Addresses</h5>
+                        <ul>
+                            <%if(address.filter(address => address.type === 'B').length <= 0){%>
+                                <p class="fw-bold text-dark mt-4">
+                                    No Address is available
+                                </p>     
+                            <%}%>
+                            <% address.forEach((data)=>{%>
+                                <%if(data.type==='B'){%>
+                                    <li>
+                                        <p class="fw-bold text-left text-dark mt-4">
+                                            <%=data.name%>, <%=data.hno%>, <%=data.city%>,<br />
+                                                        <%=data.state%>, <%=data.pincode%>
+                                        </p>                                      
+                                        <a href="/profile/edit_address/<%=data.id%>">
+                                            <button type="button" class="btn btn-primary">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                        </a>
+                                        &nbsp;
+                                        <a href="/profile/delete_address/<%=data.id%>">
+                                            <button type="button" class="btn btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <%}%>
+                                        <%})%>
+                        </ul>
+                    </div>
+                    <div class="col-6 pt-2 d-flex flex-column align-items-center">
+                        <h5 class="text-primary text-center mb-2">Shipping Addresses</h5>
+                        <ul>
+                            <%if(address.filter(address => address.type === 'S').length <= 0){%>
+                                <p class="fw-bold text-dark mt-4">
+                                    No Address is available
+                                </p>     
+                            <%}%>
+                            <% address.forEach((data)=>{%>
+                                <%if(data.type==='S'){%>
+                                    <li>
+                                        <p class="fw-bold text-left text-dark mt-4">
+                                            <%=data.name%>, <%=data.hno%>, <%=data.city%>,<br />
+                                                        <%=data.state%>, <%=data.pincode%>
+                                        </p>
+                                        <!-- Button trigger modal -->
+                                        <a href="/profile/edit_address/<%=data.id%>">
+                                            <button type="button" class="btn btn-primary edit-address">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                        </a>
+                                        &nbsp;
+                                        <a href="/profile/delete_address/<%=data.id%>">
+                                            <button type="button" class="btn btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <%}%>
+                                        <%})%>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+
+    </main>
+    <%- include('partials/footer') %>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header pt-3 pb-2 ps-4">
+                        <h1 class="modal-title fs-3" id="staticBackdropLabel">Add Address</h1>
+                        <button type="button" class="btn-close mt-3" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/profile/add_address" role="form" method="post" autocomplete="off">
+
+                            <div class="form-floating">
+                                <input type="text" name="fullname" id="fullname" class="form-control"
+                                    placeholder="Your Name" required>
+
+                                <label for="hno">Full Name</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" name="hno" id="hno" class="form-control"
+                                    placeholder="House No. / Building Name, Area" required>
+
+                                <label for="hno">House No. / Building Name, Area</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" name="city" id="city" class="form-control" placeholder="City"
+                                    required>
+
+                                <label for="city">City</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" name="state" id="state" class="form-control" placeholder="State"
+                                    required>
+
+                                <label for="state">State</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" name="pincode" id="pincode" class="form-control"
+                                    placeholder="Pin Code" pattern="\d{6}" required>
+
+                                <label for="pincode">Pin Code (6 Digit Code)</label>
+                            </div>
+                            <br />
+                            <input type="radio" name="address_type" id="billing_address" value="B" required>
+                            <label for="billing_address" class="fw-bold">Billing Address</label>&ensp;&ensp;
+                            <input type="radio" name="address_type" id="shipping_address" value="S" required>
+                            <label for="shipping_address" class="fw-bold">Shipping Address</label>
+                            <input type="hidden" name="source" value="profile">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancel</button>&ensp;
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/Headroom.js"></script>
+        <script src="/js/jQuery.headroom.js"></script>
+        <script src="/js/slick.min.js"></script>
+        <script src="/js/custom.js"></script>
+</body>
+
+</html>

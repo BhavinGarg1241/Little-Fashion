@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/slick.css" />
+    <link rel="stylesheet" href="/styles/tooplate-little-fashion.css">
+    <title>Little Fashion</title>
+</head>
+
+<body>
+    <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
+        </div>
+    </section>
+
+    <main>
+
+        <%- include('partials/header') %>
+        <section class="products section-padding">
+            <div class="d-flex flex-column align-items-center">
+                <% if(userRole !== 1){%>
+                    <h4><a href="/profile/track_orders"><i class="bi bi-arrow-left-circle"></i></a></h4>
+                <%}%>
+                <h2 class="text-center mb-4">Order Details</h2>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="ps-5">Product Image</th>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% orderDetails.forEach((item)=> { %>
+                                    <tr>
+                                        <td class="ps-4" style="width: 30%;">
+                                            <a href="/productDetails/<%= item.product.id %>">
+                                                <img src="/<%= item.product.img %>" alt="product_image" width="80%"
+                                                    height="30%">
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="/productDetails/<%= item.product.id %>">
+                                                <p>
+                                                    <h5 class="mt-5">
+                                                        <%= item.product.name %>
+                                                    </h5>
+                                                </p>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <h5 class="mt-5">
+                                                <%=item.quantity %>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="mt-5">
+                                                $<%= item.product.price %>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="mt-5">
+                                                $<%= item.product.price * item.quantity %>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                                <tr>
+                                    <td colspan="4" style="padding-left: 100px">
+                                        <h5>Total</h5>
+                                    </td>
+                                    <td colspan="2">
+                                        <h5>
+                                            $<%=totalPrice%>
+                                        </h5>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <%- include('partials/footer') %>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/Headroom.js"></script>
+        <script src="/js/jQuery.headroom.js"></script>
+        <script src="/js/slick.min.js"></script>
+        <script src="/js/custom.js"></script>
+</body>
+
+</html>

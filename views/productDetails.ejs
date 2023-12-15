@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/slick.css" />
+    <link rel="stylesheet" href="/styles/tooplate-little-fashion.css">
+    <title>Little Fashion</title>
+</head>
+
+<body>
+    <!-- <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
+        </div>
+    </section> -->
+
+    <main>
+
+        <%- include('partials/header') %>
+
+            <header class="site-header section-padding d-flex justify-content-center align-items-center">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-10 col-12">
+                            <h1>
+                                <span class="d-block text-primary">We provide you</span>
+                                <span class="d-block text-dark">Fashionable Stuffs</span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="product-detail section-padding">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-6 col-12">
+                            <div class="product-thumb">
+                                <img src="/<%= mainProduct.img%>" class="img-fluid product-image" alt="product_image">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-12">
+                            <div class="product-info d-flex">
+                                <div>
+                                    <h2 class="product-title mb-0">
+                                        <%= mainProduct.name%>
+                                    </h2>
+
+                                    <p class="product-p">Original package design from house</p>
+                                </div>
+
+                                <p class="fw-bold product-price text-muted ms-auto mt-auto mb-5">$<%= mainProduct.price%>
+                                </p>
+                            </div>
+
+                            <div class="product-description">
+
+                                <strong class="d-block mt-4 mb-2">Description</strong>
+
+                                <p class="lead mb-5">
+                                    <%= mainProduct.des%>
+                                </p>
+                            </div>
+                            <form action="/cart/add/<%=mainProduct.id%>" role="form" method="post" autocomplete="off">
+                                <div class="product-cart-thumb row">
+
+                                    <div class="col-lg-6 col-12">
+
+                                        <select class="form-select cart-form-select text-center fw-bold fs-6" name="quantity" required>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-6 col-12 mt-4 mt-lg-0">
+                                        <button type="submit" class="btn custom-btn cart-btn">Add to Cart</button>
+                                    </div>
+
+
+                                    <p>
+                                        <a href="#" class="product-additional-link">Details</a>
+
+                                        <a href="#" class="product-additional-link">Delivery and Payment</a>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="related-product section-padding border-top">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <h3 class="mb-5">You might also like</h3>
+                        </div>
+
+                        <% randomProducts.forEach((product)=>{%>
+                            <div class="col-lg-4 col-12 mb-3">
+                                <div class="product-thumb">
+                                    <a href="/productDetails/<%= product.id%>">
+                                        <img src="/<%= product.img%>" class="img-fluid product-image"
+                                            alt="product_image">
+                                    </a>
+
+
+                                    <div class="product-info d-flex">
+                                        <div>
+                                            <h5 class="product-title mb-0">
+                                                <a href="/productDetails/<%= product.id%>" class="product-title-link">
+                                                    <%= product.name%>
+                                                </a>
+                                            </h5>
+
+                                            <p class="product-p" style="font-size: 18px;">
+                                                <%= product.des%>
+                                            </p>
+                                            <small class="product-price text-muted ms-auto">$<%= product.price%></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%})%>
+
+                    </div>
+                </div>
+            </section>
+
+    </main>
+
+    <%- include('partials/footer') %>
+
+        <!-- JAVASCRIPT FILES -->
+        <script type="application/json" src="js/jquery.min.js"></script>
+        <script type="application/json" src="js/bootstrap.bundle.min.js"></script>
+        <script type="application/json" src="js/Headroom.js"></script>
+        <script type="application/json" src="js/jQuery.headroom.js"></script>
+        <script type="application/json" src="js/slick.min.js"></script>
+        <script type="application/json" src="js/custom.js"></script>
+</body>
+
+</html>

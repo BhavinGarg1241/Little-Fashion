@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/slick.css" />
+    <link rel="stylesheet" href="/styles/tooplate-little-fashion.css">
+    <title>Little Fashion</title>
+</head>
+
+<body>
+    <%- include('partials/header') %>
+        <main>
+            <section class="section-padding">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center">
+                        <h2 class="text-center mb-4">Your Cards</h2>
+                        <% if(messages.error){ %>
+                            <div class="message">
+                                <%= messages.error %>
+                            </div>
+                            <%}%>
+                        <% if(flag===true){%>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop1">
+                                Add Cards&ensp;<i class="bi bi-plus"></i>
+                            </button>
+                            <%}else{%>
+                                <!-- Button trigger modal2 -->
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop2">
+                                    Add Your First Card&ensp;<i class="bi bi-plus"></i>
+                                </button>
+                                <%}%>
+                    </div>
+
+                    <div class="d-flex flex-column align-items-center mt-5 pt-2">
+                        <div class="card-container">
+                            <% if (flag===true) { %>
+                                <% customerprofileData.paymentProfiles.forEach((card, index)=> { %>
+                                    <div class="card">
+                                        <div class="card-number"><strong>Card Number:</strong>
+                                            <%= card.payment.creditCard.cardNumber %>
+                                        </div>
+                                        <div class="expiration-date"><strong>Expiration Date:</strong>
+                                            <%= card.payment.creditCard.expirationDate %>
+                                        </div>
+                                        <div class="expiration-date"><strong>Card Type:</strong>
+                                            <%= card.payment.creditCard.cardType %>
+                                        </div>
+                                        <div class="action-buttons">
+                                            <form method="POST" action="/customer/delete_card"
+                                                style="display: inline;">
+                                                <div>
+                                                    <input type="hidden" value="<%=customerprofileData.customerProfileId%>"
+                                                        name="customerProfileId">
+                                                    <input type="hidden" value="<%=card.customerPaymentProfileId%>"
+                                                        name="customerPaymentProfileId">
+                                                </div>
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                <% }); %>
+                            <% } else { %>
+                                <p>No credit cards found.</p>
+                            <% } %>
+                        </div>
+                    </div>
+            </section>
+            </div>
+
+        </main>
+        <!-- Modal -->
+        <% if(flag===true){%>
+            <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header pt-3 pb-2 ps-4">
+                            <h1 class="modal-title fs-3" id="staticBackdropLabel">Add Address</h1>
+                            <button type="button" class="btn-close mt-3" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="contact-form me-lg-5 pe-lg-3" role="form"
+                                action="/customer/add_payment_profile" method="post">
+                                <div class="form-floating">
+                                    <input type="tel" name="cc" id="cc" class="form-control" type="tel"
+                                        inputmode="numeric" pattern='[0-9\s]{12,19}' maxlength="19"
+                                        placeholder="xxxx xxxx xxxx xxxx" required>
+                                    <label for="cc">Card Number</label>
+                                </div>
+                                <div class="form-floating my-4">
+                                    <input type="tel" name="exp" id="exp" class="form-control"
+                                        placeholder="Expiration Date (MM/YY)" pattern='^(0[1-9]|1[0-2])(\d{2})$'
+                                        required>
+                                    <label for="exp">Expiration Date (MM/YY)</label>
+                                </div>
+                                <!-- <div class="form-floating my-4">
+                                    <input type="tel" name="cvv" id="cvv" class="form-control" placeholder="CVV"
+                                        pattern='[0-9]{3}' required>
+                                    <label for="cvv">CVV</label>
+                                </div> -->
+                                <div>
+                                    <input type="hidden" value="<%=customerprofileData.customerProfileId%>"
+                                        name="customerProfileId">
+                                </div>
+                                <div class="col-lg-8 col-6">
+                                    <button type="submit" class="form-control">Add Card</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+                <!-- Modal 2 -->
+                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header pt-3 pb-2 ps-4">
+                                <h1 class="modal-title fs-3" id="staticBackdropLabel">Add Address</h1>
+                                <button type="button" class="btn-close mt-3" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="contact-form me-lg-5 pe-lg-3" role="form" action="/customer/add_profile"
+                                    method="post">
+                                    <div class="form-floating">
+                                        <input type="tel" name="cc" id="cc" class="form-control" type="tel"
+                                            inputmode="numeric" pattern='[0-9\s]{12,19}' maxlength="19"
+                                            placeholder="xxxx xxxx xxxx xxxx" required>
+                                        <label for="cc">Card Number</label>
+                                    </div>
+                                    <div class="form-floating my-4">
+                                        <input type="tel" name="exp" id="exp" class="form-control"
+                                            placeholder="Expiration Date (MM/YY)" pattern='^(0[1-9]|1[0-2])(\d{2})$'
+                                            required>
+                                        <label for="exp">Expiration Date (MM/YY)</label>
+                                    </div>
+                                    <!-- <div class="form-floating my-4">
+                                        <input type="tel" name="cvv" id="cvv" class="form-control" placeholder="CVV"
+                                            pattern='[0-9]{3}' required>
+                                        <label for="cvv">CVV</label>
+                                    </div> -->
+                                    <div class="col-lg-8 col-6">
+                                        <button type="submit" class="form-control">Add Card</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%- include('partials/footer') %>
+
+                    <!-- JAVASCRIPT FILES -->
+                    <script src="/js/jquery.min.js"></script>
+                    <script src="/js/bootstrap.bundle.min.js"></script>
+                    <script src="/js/Headroom.js"></script>
+                    <script src="/js/jQuery.headroom.js"></script>
+                    <script src="/js/slick.min.js"></script>
+                    <script src="/js/custom.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand" href="/">
+            <strong><span>Little</span> Fashion</strong>
+        </a>
+
+        <div class="d-lg-none">
+            <a href="/cart" class="bi bi-cart2 custom-icon me-3"></a>
+
+            <a href="/profile" class="bi-person custom-icon me-3"></a>
+
+            <a href="/auth/logout" class="bi bi-box-arrow-right custom-icon"></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+
+
+                <% for(let i=0 ; i < navItems.length ; i++) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%=navItems[i].url%>">
+                            <%=navItems[i].name%>
+                        </a>
+                    </li>
+                    <%} %>
+
+            </ul>
+
+            <div class="d-none d-lg-block">
+                <a href="/cart" class="bi bi-cart2 custom-icon me-3"></a>
+
+                <a href="/profile" class="bi-person custom-icon me-3"></a>
+
+                <a href="/auth/logout" class="bi bi-box-arrow-right custom-icon"></a>
+            </div>
+        </div>
+    </div>
+</nav>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let currentPath = window.location.pathname;
+
+        // Remove the active class from all nav links
+        const navLinks = document.querySelectorAll(".nav-link");
+        navLinks.forEach(function (icon) {
+            icon.classList.remove("active");
+        });
+
+        // Add the active class to the nav link that matches the current path
+        let activeLink = document.querySelector(`a[href='${currentPath}']`);
+        if (currentPath === "/") {
+            activeLink = document.querySelector(`.nav-link[href='/']`);
+        }
+        if (activeLink) {
+            activeLink.classList.add("active");
+        }
+    });
+</script>

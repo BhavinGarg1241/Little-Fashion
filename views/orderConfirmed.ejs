@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/slick.css" />
+    <link rel="stylesheet" href="/styles/tooplate-little-fashion.css">
+    <title>Little Fashion</title>
+</head>
+
+<body>
+    <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
+        </div>
+    </section>
+    <main>
+        <section class="section-padding">
+            <div class="container mb-5">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-start">
+                        <a href="/">
+                            <button class="btn btn-secondary mb-5">
+                                <i class="bi bi-arrow-left"></i>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <p class="text-success fs-2">Payment was successfull</p>
+                <p>Transation ID : <%=transactionId%>
+                </p>
+                <p class="mt-4 fs-3">Your Order has been confirmed!</p>
+                <p>Email regarding the same has been sent to <br /> your respective email address.</p>
+                <div>
+                    <p class="text-secondary mt-5">You can track your orders from here <i
+                            class="bi bi-arrow-down-square"></i></p>
+                    <a href="/profile/track_orders" class="fs-4">Track your orders!</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Headroom.js"></script>
+    <script src="/js/jQuery.headroom.js"></script>
+    <script src="/js/slick.min.js"></script>
+    <script src="/js/custom.js"></script>
+</body>
+
+</html>

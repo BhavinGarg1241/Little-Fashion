@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/slick.css" />
+    <link rel="stylesheet" href="/styles/tooplate-little-fashion.css">
+    <title>Little Fashion</title>
+</head>
+
+<body>
+    <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
+        </div>
+    </section>
+
+    <main>
+        <%- include('partials/header') %>
+
+            <section class="contact section-padding">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-5 col-12">
+                            <h2 class="mb-4">Let's <span>edit your address!</span></h2>
+
+                                <form action="/profile/edit_address/" role="form" method="post" autocomplete="off">
+
+                                    <div class="form-floating">
+                                        <input type="text" name="fullname" id="fullname" class="form-control"
+                                            placeholder="Your Name" value="<%=address.name%>" required>
+
+                                        <label for="hno">Full Name</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input type="text" name="hno" id="hno" class="form-control"
+                                            placeholder="House No. / Building Name, Area" value="<%=address.hno%>" required>
+
+                                        <label for="hno">House No. / Building Name, Area</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input type="text" name="city" id="city" class="form-control" placeholder="City" value="<%=address.city%>"  required>
+
+                                        <label for="city">City</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input type="text" name="state" id="state" class="form-control" value="<%=address.state%>"  placeholder="State" required>
+                                        <label for="state">State</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input type="text" name="pincode" id="pincode" class="form-control"
+                                            placeholder="Pin Code" pattern="\d{6}"  value="<%=address.pincode%>"  required>
+
+                                        <label for="pincode">Pin Code (6 Digit Code)</label>
+                                    </div>
+                                    <br />
+                                    <input type="radio" name="address_type" id="billing_address" value="B" required <%= (address.type === 'B') ? 'checked' : '' %> >
+                                    <label for="billing_address" class="fw-bold">Billing Address</label>&ensp;&ensp;
+                                    <input type="radio" name="address_type" id="shipping_address" value="S" required <%= (address.type === 'S') ? 'checked' : '' %>>
+                                    <label for="shipping_address" class="fw-bold">Shipping Address</label>
+                                    <input type="hidden" name="address_id" value="<%=address.id%>">
+                                    <div class="modal-footer">
+                                        <a href="/profile/addresses"><button type="button"
+                                                class="btn btn-secondary">Cancel</button></a>&ensp;
+                                        <button type="submit" class="btn btn-primary">Confirm</button>
+                                    </div>
+                                </form>
+
+                        </div>
+
+                        <div class="col-lg-6 col-12 mt-5 ms-auto">
+                            <div class="row">
+                                <div class="col-6 border-end contact-info">
+                                    <h6 class="mb-3">New Business</h6>
+
+                                    <a href="mailto:hello@company.com" class="custom-link">
+                                        hello@company.com
+                                        <i class="bi-arrow-right ms-2"></i>
+                                    </a>
+                                </div>
+
+                                <div class="col-6 contact-info">
+                                    <h6 class="mb-3">Main Studio</h6>
+
+                                    <a href="mailto:studio@company.com" class="custom-link">
+                                        studio@company.com
+                                        <i class="bi-arrow-right ms-2"></i>
+                                    </a>
+                                </div>
+
+                                <div class="col-6 border-top border-end contact-info">
+                                    <h6 class="mb-3">Our Office</h6>
+
+                                    <p class="text-muted">Akershusstranda 20, 0150 Oslo, Norway</p>
+                                </div>
+
+                                <div class="col-6 border-top contact-info">
+                                    <h6 class="mb-3">Our Socials</h6>
+
+                                    <ul class="social-icon">
+
+                                        <li><a href="#" class="social-icon-link bi-messenger"></a></li>
+
+                                        <li><a href="#" class="social-icon-link bi-youtube"></a></li>
+
+                                        <li><a href="#" class="social-icon-link bi-instagram"></a></li>
+
+                                        <li><a href="#" class="social-icon-link bi-whatsapp"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+    </main>
+
+
+    <%- include('partials/footer') %>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/Headroom.js"></script>
+        <script src="/js/jQuery.headroom.js"></script>
+        <script src="/js/slick.min.js"></script>
+        <script src="/js/custom.js"></script>
+</body>
+
+</html>

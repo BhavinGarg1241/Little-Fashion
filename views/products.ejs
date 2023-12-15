@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap">
+    <link rel="stylesheet" href="styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/slick.css" />
+    <link rel="stylesheet" href="styles/tooplate-little-fashion.css">
+    <title>Little Fashion</title>
+</head>
+
+<body>
+    <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
+        </div>
+    </section>
+
+    <main>
+
+        <%- include('partials/header') %>
+
+            <header class="site-header section-padding d-flex justify-content-center align-items-center">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-10 col-12">
+                            <h1>
+                                <span class="d-block text-primary">Choose your</span>
+                                <span class="d-block text-dark">favorite stuffs</span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="products section-padding">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <h2 class="mb-5">Products For You and Your Family</h2>
+                        </div>
+
+                        <% filteredProducts.forEach((product)=>{%>
+                            <div class="col-4 mb-5">
+                                <div class="product-thumb">
+                                    <a href="/productDetails/<%= product.id%>">
+                                        <img src="<%= product.img%>" class="img-fluid product-image" alt="product_image">
+                                    </a>
+                                    <div class="container-fluid">
+                                        <div>
+                                            <h5 class="product-title mt-3 text-center pe-5 text-left">
+                                                <a href="/productDetails/<%= product.id%>" class="product-title-link">
+                                                    <%= product.name%>
+                                                </a>
+                                            </h5>
+                                            <div class="container-fluid d-flex">
+                                                <div class="col-6">
+                                                    <p class="product-p" style="font-size: 18px;">
+                                                        <%= product.des%>
+                                                    </p>
+                                                    <small class="product-price text-muted ms-auto">$<%= product.price%></small>
+                                                </div>
+                                                <%if(userRole.role===1){%>
+                                                    <div class="col-6 pt-4 ms-5 ps-5">
+                                                        <a href="/admin/edit_product/<%=product.id%>">
+                                                            <button type="button" class="btn btn-dark">
+                                                               <i class="bi bi-pencil"></i>
+                                                            </button>
+                                                        </a>
+                                                        &nbsp;
+                                                        <a href="/admin/toggle_status/<%=product.id%>">
+                                                            <button type="button" class="btn btn-dark">                                                                
+                                                                <%- product.status===true ? 'A' : 'IA'%>
+                                                            </button>
+                                                        </a>
+                                                        <!-- &nbsp;
+                                                        <a href="/admin/delete_product/<%=product.id%>">
+                                                            <button type="button" class="btn btn-dark">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </a> -->
+                                                    </div>
+                                                <%}%>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <%})%>
+
+                    </div>
+                </div>
+            </section>
+
+    </main>
+
+    <%- include('partials/footer') %>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/Headroom.js"></script>
+        <script src="js/jQuery.headroom.js"></script>
+        <script src="js/slick.min.js"></script>
+        <script src="js/custom.js"></script>
+</body>
+
+</html>

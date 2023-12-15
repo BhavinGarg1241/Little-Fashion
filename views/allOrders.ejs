@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap">
+    <link rel="stylesheet" href="/styles/bootstrap-icons.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/slick.css" />
+    <link rel="stylesheet" href="/styles/tooplate-little-fashion.css">
+    <title>Little Fashion</title>
+</head>
+
+<body>
+    <section class="preloader">
+        <div class="spinner">
+            <span class="sk-inner-circle"></span>
+        </div>
+    </section>
+
+    <main>
+
+        <%- include('partials/header') %>
+            <section class="section-padding">
+                <div class="d-flex flex-column align-items-center">
+                    <h2 class="text-center mb-4">All Orders</h2>
+                </div>
+                <div class="container-fluid px-5 mx-5">
+                    <table class="table">
+                        <thead>
+                            <tr class="text-center">
+                                <th>User Email</th>
+                                <th>Order ID</th>
+                                <th>Transaction ID</th>
+                                <th>Date Of Order</th>
+                                <th>Total Price</th>
+                                <th>Order Details</th>
+                                <th>Status</th>
+                                <th>Change Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <% allOrders.forEach((order)=>{%>
+                                <tr>
+                                    <td>
+                                        <%= order.user.email%>
+                                    </td>
+                                    <td>
+                                        <%= order.id%>
+                                    </td>
+                                    <td>
+                                        <%= order.transaction_id%>
+                                    </td>
+                                    <td>
+                                        <%=order.order_date%>
+                                    </td>
+                                    <td>$<%=order.total_price%>
+                                    </td>
+                                    <td>
+                                        <a href="/order_details/<%=order.id%>" class="fs-4">
+                                            <i class="bi bi-card-checklist"></i>
+                                        </a>
+                                    </td>
+                                    <td <% if(order.status==='Cancelled'){%>style="color:red;"<%}else if(order.status==='Delivered'){%> style="color:green;"<%}%> >
+                                        <%= order.status%>
+                                    </td>
+                                    <% if(order.status!=='Cancelled' ){%>
+                                        <td>
+                                            <!-- Form for changing role -->
+                                            <form action="/admin/update_order_status/<%= order.id %>" method="post">
+                                                <select name="newStatus" class="change_role_input btn">
+                                                    <option disabled <% if(order.status==='Pending' ){%>selected<%}%>
+                                                            >Pending</option>
+                                                    <option value="Accepted" <% if(order.status==='Accepted' ){%>
+                                                        selected<%}%>>Accepted</option>
+                                                    <option value="Shipped" <% if(order.status==='Shipped' ){%>selected
+                                                        <%}%>>Shipped</option>
+                                                    <option value="Out for Delivery" <%
+                                                        if(order.status==='Out for Delivery' ){%>selected<%}%>>Out for
+                                                            Delivery</option>
+                                                    <option value="Delivered" <% if(order.status==='Delivered' ){%>
+                                                        selected<%}%>>Delivered</option>
+                                                </select>&ensp;
+                                                <input type="submit" class="btn btn-dark" value="Change Status">
+                                            </form>
+                                        </td>
+                                        <%}else{%>
+                                            <td>
+                                                Already Cancelled!
+                                            </td>
+                                        <%}%>    
+                                </tr>
+                                <%})%>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+    </main>
+    <%- include('partials/footer') %>
+
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/Headroom.js"></script>
+        <script src="/js/jQuery.headroom.js"></script>
+        <script src="/js/slick.min.js"></script>
+        <script src="/js/custom.js"></script>
+</body>
+
+</html>

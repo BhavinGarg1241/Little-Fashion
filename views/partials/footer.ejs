@@ -1,0 +1,48 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-3 col-10 me-auto mb-4">
+                <h4 class="text-white mb-3"><a href="/">Little</a> Fashion</h4>
+                <p class="copyright-text text-muted mt-lg-5 mb-4 mb-lg-0">Copyright © 2022 <strong>
+                        <%= footerData.brand %>
+                    </strong></p>
+                <br>
+                <p class="copyright-text">Designed by <a href="https://www.tooplate.com/" target="_blank">
+                        <%= footerData.designed_by%>
+                    </a>
+                </p>
+            </div>
+
+            <div class="col-lg-5 col-8">
+                <h5 class="text-white mb-3">Sitemap</h5>
+
+                <ul class="footer-menu d-flex flex-wrap">
+                    <% const sitemap = JSON.parse(footerData.site_map) %>
+                    <% sitemap.forEach((item)=>{%>
+                        <li class="footer-menu-item">
+                            <a href="<%=item.url%>" class="footer-menu-link">
+                                <%= item.text %>
+                            </a>
+                        </li>
+                        <%})%>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-4">
+                <h5 class="text-white mb-3">Social</h5>
+
+                <ul class="social-icon">
+                    <% const socialIcons = JSON.parse(footerData.social_icons) %>
+                    <%socialIcons.forEach((item)=>{%>
+                        <li>
+                            <a href="<%= item.url%>" class="social-icon-link <%= item.iconClass %>"></a>
+                        </li>
+                        <%})%>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</footer>
